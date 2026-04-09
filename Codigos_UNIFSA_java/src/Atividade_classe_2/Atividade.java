@@ -2,11 +2,16 @@ package Atividade_classe_2;
 
 public class Atividade {
 
+}
+//----------------------------------------------------------------------------------------------------------------------------------------------
+	class Produto{
+	
+	
 	protected String nome;
 	protected double preco;
 	protected int estoque;
 	
-	public Atividade(String nome, double preco, int estoque) {
+	public Produto(String nome, double preco, int estoque) {
 		this.nome = nome;
 		this.preco = preco;
 		this.estoque = estoque;
@@ -61,7 +66,7 @@ public class Atividade {
 }
 	//------------------------------------SUBCLASSE----------------------------------
 	
-	 class Perecivel extends Atividade {
+	 class Perecivel extends Produto {
 		
 		private String dataValidade;
 
@@ -91,7 +96,7 @@ public class Atividade {
 	
 //-------------------------------------Subclasse2---------------------
 	
-	 class ProdutoImportado extends Atividade{
+	 class ProdutoImportado extends Produto{
 
 		private float taxaImportacao;
 		
@@ -121,12 +126,12 @@ public class Atividade {
 //---------------------------Subclasse3-------------------------
 		 class Venda{
 			
-		Atividade atividade;	
+		Produto produto;	
 		Perecivel perecivel;
 		ProdutoImportado produtoImportado;
 		
-		public void processarItem(Atividade atividade,int qtd) {
-			double calcularPreco = atividade.preco * qtd;
+		public void processarItem(Produto produto,int qtd) {
+			double calcularPreco = produto.preco * qtd;
 			System.out.println("Preço calculado: "+calcularPreco);
 		}
 			
@@ -142,7 +147,20 @@ public class Atividade {
 			System.out.println("Preço calculado: "+calcularPreco);
 		}
 		
+		public double vender(Produto produto,int qtd) {
+			double quantidade_final = produto.estoque - qtd;
+			return quantidade_final;
+		}
 		
+		public double vender(Perecivel perecivel,int qtd) {
+			double quantidade_final = perecivel.estoque - qtd;
+			return quantidade_final;
+		}
+		
+		public double vender(ProdutoImportado produtoImportado,int qtd) {
+			double quantidade_final = produtoImportado.estoque - qtd;
+			return quantidade_final;
+		}
 		
 }
 	
@@ -151,10 +169,13 @@ public class Atividade {
 			 
 			public static void main(String[]args) {
 				
-				Atividade p1 = new Atividade();
-				Perecivel perecivel = new Perecivel();
-				ProdutoImportado importado = new ProdutoImportado();
-				
+				Produto produto = new Produto("Sabonete",7.00,20);
+				Perecivel perecivel = new Perecivel("Leite",15.00,70,"16-09-2026");
+				ProdutoImportado importado = new ProdutoImportado("Perfume",70.00,7,50);
+				Venda venda = new Venda();
+				venda.vender(perecivel, 10);
+				venda.vender(produto, 10);
+				venda.vender(importado, 10);
 				
 				
 				
